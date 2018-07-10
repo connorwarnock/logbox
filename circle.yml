@@ -1,0 +1,18 @@
+machine:
+  python:
+    version: 2.7.12
+
+dependencies:
+  override:
+    - pip install -U -r requirements.txt
+
+database:
+  override:
+    - cp .env.example .env
+    - ENV=circleci alembic upgrade head
+
+test:
+  override:
+    - ENV=circleci python -m unittest discover
+  pre:
+    - npm run circleci-lint

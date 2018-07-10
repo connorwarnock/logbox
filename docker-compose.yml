@@ -1,0 +1,42 @@
+web:
+    container_name: logbox_web
+    build: .
+    volumes:
+        - .:/app
+    ports:
+        - "8080:8080"
+    tty: true
+    links:
+        - db
+        - redis
+    tty: true
+    environment:
+        - CELERY_BROKER_URL=redis://redis:6379
+        - CELERY_RESULT_BACKEND=redis://redis:6379
+
+redis:
+    container_name: logbox_redis
+    image: redis
+
+celery-worker:
+    container_name: logbox_celery
+    build: .
+    volumes:
+        - .:/app
+    links:
+        - db
+        - redis
+    tty: true
+    environment:
+        - CELERY_BROKER_URL=redis://redis:6379
+        - CELERY_RESULT_BACKEND=redis://redis:6379
+
+    entrypoint: 'celery -A lib worker --loglevel=info'
+
+db:
+    container_name: logbox_db
+    image: postgres:9.5.4
+    environment:
+        - "POSTGRES_PASSWORD=password"
+    ports:
+        - "15432:5432"

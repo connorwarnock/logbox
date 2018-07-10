@@ -1,0 +1,34 @@
+{
+  "name": "logbox",
+  "version": "1.0.0",
+  "description": "## Setup You will need to have Docker compose installed",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "docker exec -it -e ENV=test logbox_web python -m unittest discover",
+    "ssh": "docker exec -it logbox_web bash",
+    "up": "docker-compose up",
+    "rebuild": "docker-compose build; docker-compose up -d",
+    "lint": "docker exec -it logbox_web pylint --ignore='./venv/*' --disable=W app models",
+    "lint-with-warnings": "docker exec -it logbox_web pylint --ignore='./venv/*' --disable=W app models",
+    "circleci-lint": "pylint --ignore='./venv/*' --disable=W app models",
+    "api-token": "docker exec -it logbox_web python lib/generate_api_token.py",
+    "setup": "docker exec -it logbox_web bash bin/setup.sh",
+    "migration": "docker exec -it logbox_web alembic revision",
+    "auto-migration": "docker exec -it logbox_web alembic revision --autogenerate",
+    "migrate": "docker exec -it logbox_web alembic upgrade +1",
+    "rollback": "docker exec -it logbox_web alembic downgrade +1",
+    "db": "docker exec -it logbox_web bash -c 'PGPASSWORD=password psql -U postgres -h db logbox'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connorwarnock/logbox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/connorwarnock/logbox/issues"
+  },
+  "homepage": "https://github.com/connorwarnock/logbox#readme"
+}
