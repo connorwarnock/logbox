@@ -10,7 +10,7 @@ from flask_restful import Resource
 from sqlalchemy import or_, and_
 
 from lib import APP, API, background, celery
-from lib.aws import s3_upload, s3_hash_list, destination_path
+from lib.aws import s3_upload, destination_path
 from lib.upload_functions import upload_log
 from models import Log, LogEvent, AuthToken
 from schemas import log_schema, logs_schema, log_event_schema, log_events_schema
