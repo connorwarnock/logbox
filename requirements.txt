@@ -38,7 +38,7 @@ jmespath==0.9.1
 kombu==4.0.2
 lazy-object-proxy==1.2.2
 loggly-python-handler==1.0.0
-Mako==1.0.4
+Mako==1.2.2
 MarkupSafe==0.23
 marshmallow==2.9.1
 marshmallow-jsonapi==0.8.0
